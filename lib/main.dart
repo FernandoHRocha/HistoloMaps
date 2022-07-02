@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nandorocha_histologia/core/viewmodels/hitolomap_model.dart';
 import 'package:nandorocha_histologia/view/screens/histolomap_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -9,11 +10,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    /*return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HistoloMapScreen(),
-    );
-    /*return MultiProvider(
+    );*/
+    return MultiProvider(
       providers: [
         ChangeNotifierProvider<HistoloMapModel>(
           create: (context) => HistoloMapModel(),
@@ -23,6 +24,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: HistoloMapScreen(),
       ),
-    );*/
+    );
   }
 }

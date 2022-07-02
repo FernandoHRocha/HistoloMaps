@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nandorocha_histologia/view/widgets/appbar_widget.dart';
 import 'package:nandorocha_histologia/view/widgets/gridview_widget.dart';
+import 'package:nandorocha_histologia/view/widgets/raw_gesture_detector_widget.dart';
 
 class HistoloMapScreen extends StatelessWidget {
   const HistoloMapScreen({Key? key}) : super(key: key);
@@ -19,8 +20,10 @@ class HistoloMapScreen extends StatelessWidget {
         ),
         child: Container(
           color: Colors.white,
-          child: const Center(
-            child: GridViewWidget(),
+          child: Center(
+            child: RawGestureDetectorWidget(
+              child: GridViewWidget(),
+            ),
           ),
         ),
       ),
