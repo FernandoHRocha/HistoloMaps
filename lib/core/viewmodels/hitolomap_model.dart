@@ -14,6 +14,7 @@ class Pos {
 }
 
 class HistoloMapModel extends ChangeNotifier {
+  final double MAX_SCALE = 128.0;
   double _scale = 1.0;
   double _previousScale = 1.0;
   Pos _pos = Pos(0.0, 0.0);
@@ -57,12 +58,13 @@ class HistoloMapModel extends ChangeNotifier {
 
     if (_scale < 1.0) {
       _scale = 1.0;
-    } else if (_scale > 4.0) {
-      _scale = 4.0;
+    } else if (_scale > MAX_SCALE) {
+      _scale = MAX_SCALE;
     } else if (_previousScale == _scale) {
       _pos.x = (details.focalPoint.dx / _scale) - _previousPos.x;
       _pos.y = (details.focalPoint.dy / _scale) - _previousPos.y;
     }
+
     notifyListeners();
   }
 
@@ -77,7 +79,7 @@ class HistoloMapModel extends ChangeNotifier {
   }
 
   void handleDragScaleEnd() {
-    _previousScale = 1.0;
+    _previousScale = 2.0;
     _endPos = _pos;
     notifyListeners();
   }

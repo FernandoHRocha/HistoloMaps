@@ -9,22 +9,20 @@ class HistoloMapScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(100),
+        preferredSize: Size.fromHeight(60),
         child: AppBarWidget(),
       ),
       body: ClipRRect(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(40),
           topRight: Radius.circular(40),
+          bottomLeft: Radius.circular(40),
+          bottomRight: Radius.circular(40),
         ),
-        child: Container(
-          color: Colors.white,
-          child: Center(
-            child: RawGestureDetectorWidget(
-              child: GridViewWidget(),
-            ),
-          ),
+        child: RawGestureDetectorWidget(
+          child: const GridViewStatefulWidget(),
         ),
       ),
     );

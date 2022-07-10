@@ -11,7 +11,7 @@ class AppBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Global.pink,
+      backgroundColor: Colors.black,
       bottom: PreferredSize(
         preferredSize: Size.zero,
         child: Column(

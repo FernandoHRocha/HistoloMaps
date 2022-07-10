@@ -20,9 +20,9 @@ abstract class Global {
     },
     {
       'location': 'Lugar de Interesse 3',
-      'name': 'TRES',
+      'name': 'TRÊS',
       'status': false,
-      'position': [0.07, -0.01],
+      'position': [0.08, -0.05],
       'tile': 10,
     }
   ];

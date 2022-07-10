@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:nandorocha_histologia/core/models/models.dart';
 import 'package:nandorocha_histologia/core/viewmodels/hitolomap_model.dart';
 import 'package:provider/provider.dart';
@@ -44,55 +47,20 @@ List<String> _images = [
   'assets/images/l7_c3.png'
 ];
 
-class GridViewStatefulWidget extends StatefulWidget {
-  const GridViewStatefulWidget({Key? key}) : super(key: key);
-
-  @override
-  _GridViewStatefulWidget createState() => _GridViewStatefulWidget();
-}
-
-class _GridViewStatefulWidget extends State<GridViewStatefulWidget> {
-  List images0 = [];
-  List images1 = [];
-  // int _col = 14;
-  // int _row = 6;
-  final int _col = 7;
-  final int _row = 3;
-
-  @override
-  void initState() {
-    super.initState();
-    dirContents(0).then((value) => {
-          setState(() {
-            images0 = value;
-          })
-        });
-  }
-
-  dirContents(level) async {
-    List localImages = [];
-    for (int col = 0; col <= _col; col++) {
-      for (int row = 0; row <= _row; row++) {
-        localImages.add(await DefaultAssetBundle.of(context)
-            .load('assets/images/$level/l${col}_c$row.png'));
-      }
-    }
-    return localImages;
-  }
+class GridViewWidget extends StatelessWidget {
+  const GridViewWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final HistoloMapModel model = Provider.of<HistoloMapModel>(context);
     final Size size = MediaQuery.of(context).size;
-    double relativeScale =
-        (MediaQuery.of(context).size.height * model.scale / 100);
 
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: _row + 1,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
       ),
-      //physics: const NeverScrollableScrollPhysics(),
-      itemCount: images0.length,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: _images.length,
       clipBehavior: Clip.none,
       shrinkWrap: true,
       itemBuilder: (context, index) {
@@ -103,15 +71,7 @@ class _GridViewStatefulWidget extends State<GridViewStatefulWidget> {
           alignment: Alignment.center,
           children: [
             Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1,
-                ),
-              ),
-              child: Image.memory(
-                images0[index].buffer.asUint8List(),
-              ),
+              child: Image.asset(_images[index]),
             ),
             model.isScaled
                 ? Stack(
@@ -124,36 +84,29 @@ class _GridViewStatefulWidget extends State<GridViewStatefulWidget> {
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            MaterialButton(
-                              shape: const CircleBorder(),
-                              height: 40 / model.scale,
-                              color: (Global.pink),
-                              padding: EdgeInsets.zero,
-                              onPressed: () {
-                                print(tilePlaces[idx].name);
-                              },
-                              child: Text(
-                                tilePlaces[idx].name,
-                                overflow: TextOverflow.visible,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14 / model.scale,
-                                ),
+                            const CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              radius: 2,
+                            ),
+                            Center(
+                              child: Icon(
+                                Icons.add,
+                                color: tilePlaces[idx].status
+                                    ? Colors.indigo
+                                    : Global.pink,
+                                size: 7,
                               ),
                             ),
-                            // Transform(
-                            //   alignment: Alignment.center,
-                            //   transform: Matrix4.identity()
-                            //     ..translate(0.0, 0 * 24 / model.scale),
-                            //   child: Text(
-                            //     tilePlaces[idx].name,
-                            //     style: TextStyle(
-                            //       color: Colors.black,
-                            //       fontSize: (24 * (1 / model.scale)),
-                            //     ),
-                            //   ),
-                            // )
+                            Transform(
+                              transform: Matrix4.identity()..translate(0.0, 8),
+                              child: Text(
+                                tilePlaces[idx].name,
+                                style: const TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 4,
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       );

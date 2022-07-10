@@ -10,10 +10,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HistoloMapScreen(),
-    );*/
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<HistoloMapModel>(
