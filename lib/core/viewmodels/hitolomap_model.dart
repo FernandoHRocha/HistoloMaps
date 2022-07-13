@@ -48,7 +48,23 @@ class HistoloMapModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void handleDragScaleUpdate(ScaleUpdateDetails details) {
+  void handleDragScaleUpdate(ScaleUpdateDetails details, BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width - 20;
+    double screenHeight = MediaQuery.of(context).size.height - 103;
+
+    void limitDrag() {
+      double rightLimit = (screenWidth / 2) - ((screenWidth / (2 * _scale)));
+      double downLimit = ((screenHeight * (1 - (1 / _scale))) / 2);
+
+      if (_pos.x > rightLimit) {
+        _pos.x = rightLimit;
+      }
+
+      if (_pos.y > downLimit) {
+        _pos.y = downLimit;
+      }
+    }
+
     _scale = _previousScale * details.scale;
     if (_scale > 2.0) {
       _isScaled = true;
@@ -64,6 +80,7 @@ class HistoloMapModel extends ChangeNotifier {
       _pos.x = (details.focalPoint.dx / _scale) - _previousPos.x;
       _pos.y = (details.focalPoint.dy / _scale) - _previousPos.y;
     }
+    limitDrag();
 
     notifyListeners();
   }

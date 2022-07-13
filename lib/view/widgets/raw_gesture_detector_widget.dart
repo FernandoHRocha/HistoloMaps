@@ -40,7 +40,7 @@ class RawGestureDetectorWidget extends StatelessWidget {
               model.handleDragScaleStart(details);
             }
             ..onUpdate = (details) {
-              model.handleDragScaleUpdate(details);
+              model.handleDragScaleUpdate(details, context);
             }
             ..onEnd = (_) {
               model.handleDragScaleEnd();

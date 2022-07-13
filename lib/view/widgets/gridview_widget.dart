@@ -84,8 +84,6 @@ class _GridViewStatefulWidget extends State<GridViewStatefulWidget> {
   Widget build(BuildContext context) {
     final HistoloMapModel model = Provider.of<HistoloMapModel>(context);
     final Size size = MediaQuery.of(context).size;
-    double relativeScale =
-        (MediaQuery.of(context).size.height * model.scale / 100);
 
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -103,10 +101,11 @@ class _GridViewStatefulWidget extends State<GridViewStatefulWidget> {
           alignment: Alignment.center,
           children: [
             Container(
+              alignment: Alignment.topLeft,
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Colors.black,
-                  width: 1,
+                  width: 2 / model.scale,
                 ),
               ),
               child: Image.memory(
@@ -137,7 +136,7 @@ class _GridViewStatefulWidget extends State<GridViewStatefulWidget> {
                                 overflow: TextOverflow.visible,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w800,
                                   fontSize: 14 / model.scale,
                                 ),
                               ),
