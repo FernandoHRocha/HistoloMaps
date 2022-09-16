@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:nandorocha_histologia/core/models/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nandorocha_histologia/view/shared/global.dart';
@@ -65,21 +66,25 @@ class HistoloMapModel extends ChangeNotifier {
       }
     }
 
-    _scale = _previousScale * details.scale;
-    if (_scale > 2.0) {
-      _isScaled = true;
-    } else {
-      _isScaled = false;
+    void scaleFunctions() {
+      _scale = _previousScale * details.scale;
+      if (_scale > 2.0) {
+        _isScaled = true;
+      } else {
+        _isScaled = false;
+      }
+
+      if (_scale < 1.0) {
+        _scale = 1.0;
+      } else if (_scale > MAX_SCALE) {
+        _scale = MAX_SCALE;
+      } else if (_previousScale == _scale) {
+        _pos.x = (details.focalPoint.dx / _scale) - _previousPos.x;
+        _pos.y = (details.focalPoint.dy / _scale) - _previousPos.y;
+      }
     }
 
-    if (_scale < 1.0) {
-      _scale = 1.0;
-    } else if (_scale > MAX_SCALE) {
-      _scale = MAX_SCALE;
-    } else if (_previousScale == _scale) {
-      _pos.x = (details.focalPoint.dx / _scale) - _previousPos.x;
-      _pos.y = (details.focalPoint.dy / _scale) - _previousPos.y;
-    }
+    scaleFunctions();
     limitDrag();
 
     notifyListeners();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nandorocha_histologia/core/viewmodels/hitolomap_model.dart';
 import 'package:nandorocha_histologia/view/screens/histolomap_screen.dart';
+import 'package:nandorocha_histologia/view/screens/home_menu_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(const MyApp());
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HistoloMapScreen(),
+        home: HomeMenuScreen(),
+        // home: HistoloMapScreen(),
       ),
     );
   }
